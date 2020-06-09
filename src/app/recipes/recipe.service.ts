@@ -1,48 +1,42 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
+
 import { Recipe } from './recipe.model';
 import { Ingredient } from '../shared/ingredient.model';
 import { ShoppingListService } from '../shopping-list/shopping-list.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class RecipeService {
   recipeSelected = new EventEmitter<Recipe>();
-  
+
   private recipes: Recipe[] = [
     new Recipe(
-      'Chorizo & mozzarella gnocchi bake', 
-      'Cheesy pasta with gnocchi, chorizo and mozzarella', 
-      'https://www.tasteofhome.com/wp-content/uploads/2018/01/Black-Bean-Chorizo-Sweet-Potato-Chili_EXPS_SBZ19_152302_B09_14_3b-1-696x696.jpg', 
+      'Tasty Schnitzel',
+      'A super-tasty Schnitzel - just awesome!',
+      'https://upload.wikimedia.org/wikipedia/commons/7/72/Schnitzel.JPG',
       [
-        new Ingredient('Onion', 1),
-        new Ingredient('Garlic Cloves', 2),
-        new Ingredient('Chorizo', 120)
+        new Ingredient('Meat', 1),
+        new Ingredient('French Fries', 20)
       ]),
-    new Recipe(
-      'Big Fat Burger', 
-      'Super fat burger that you will not get enough of', 
-      'https://www.tasteofhome.com/wp-content/uploads/2018/01/Scrum-Delicious-Burgers_EXPS_CHMZ19_824_B10_30_2b-696x696.jpg', 
+    new Recipe('Big Fat Burger',
+      'What else you need to say?',
+      'https://upload.wikimedia.org/wikipedia/commons/b/be/Burger_King_Angus_Bacon_%26_Cheese_Steak_Burger.jpg',
       [
-        new Ingredient('Burger', 3),
-        new Ingredient('Bun', 2),
-        new Ingredient('Onion', 1),
-        new Ingredient('Pickle', 1),
-        new Ingredient('Cheese', 3)
+        new Ingredient('Buns', 2),
+        new Ingredient('Meat', 1)
       ])
   ];
 
   constructor(private slService: ShoppingListService) {}
 
-  getRecipes(){
+  getRecipes() {
     return this.recipes.slice();
   }
 
-  getRecipe(index: number){
+  getRecipe(index: number) {
     return this.recipes[index];
   }
 
-  addIngredientsToShoppingList(ingredients: Ingredient[]){
+  addIngredientsToShoppingList(ingredients: Ingredient[]) {
     this.slService.addIngredients(ingredients);
   }
 }
